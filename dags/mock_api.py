@@ -1,0 +1,20 @@
+import random
+from datetime import datetime, timedelta, timezone
+
+
+def fetch_new_records(n=20):
+    now = datetime.now(timezone.utc)
+    records = []
+    for i in range(n):
+        ts = now - timedelta(seconds=i)
+        records.append({
+            "timestamp": ts.isoformat(),
+            "temperature": round(random.uniform(60, 100), 2),
+            "humidity":    round(random.uniform(30, 90), 2),
+            "pressure":    round(random.uniform(28, 32), 2),
+            "vibration":   round(random.uniform(0.1, 5.0), 2),
+            "failure":     random.choice([0, 0, 0, 0, 1]),
+        })
+    for r in records[:3]:
+        r["humidity"] = None
+    return records
